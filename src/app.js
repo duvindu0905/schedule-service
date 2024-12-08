@@ -1,30 +1,26 @@
+// src/app.js
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const connectDB = require('./config/db');  // MongoDB connection
-const scheduleRoutes = require('./routes/scheduleRoute');  // Import the schedule routes
-const swaggerUi = require('swagger-ui-express');
-const swaggerDocument = require('../swagger/swagger.json');  // Swagger documentation
+const scheduleRoutes = require('./routes/scheduleRoute');  // Correct import for schedule routes
 
 const app = express();
 
 // Middleware
 app.use(cors());
-app.use(bodyParser.json());  // Parse JSON bodies
+app.use(bodyParser.json());
 
 // Connect to MongoDB
 connectDB();
-
-// Serve Swagger API documentation
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-
-// Use schedule routes under /schedule-service
-app.use('/schedule-service', scheduleRoutes);  
 
 // Base route for health check
 app.get('/', (req, res) => {
   res.json({ message: 'Welcome to the Schedule Service API!' });
 });
+
+// Use schedule routes for API endpoints under /schedule-service
+app.use('/schedule-service', scheduleRoutes);  // Ensure you're using scheduleRoutes
 
 // Fallback route for undefined paths
 app.use((req, res) => {
@@ -33,7 +29,7 @@ app.use((req, res) => {
 
 // Error handling middleware
 app.use((err, req, res, next) => {
-  console.error(err.stack);
+  console.error(err.stack);  // Log the error stack
   res.status(500).json({ message: 'Internal Server Error' });
 });
 
