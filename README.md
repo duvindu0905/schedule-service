@@ -3,8 +3,8 @@ nibm index - YR3COBSCCOMP232P-007
 
 Api for schedule service 
 
-url: 
+url: https://api.scheduleservice.bussewaya.online
 
-example: 
+example: https://schedule-service-193893744076.us-central1.run.app/schedule-service/schedules
 
-swagger url: 
+swagger url: https://api.scheduleservice.bussewaya.online/api-docs/#/
