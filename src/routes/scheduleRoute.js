@@ -1,22 +1,17 @@
 const express = require('express');
 const router = express.Router();
-const {
-  createSchedule,
-  getAllSchedules,
-  getScheduleByScheduleId,
-  deleteScheduleByScheduleId
-} = require('../controllers/scheduleController');
+const scheduleController = require('../controllers/scheduleController');  // Import controller
 
 // Route to create a new schedule (POST)
-router.post('/schedules', createSchedule);
+router.post('/schedules', scheduleController.createSchedule);
 
 // Route to get all schedules (GET)
-router.get('/schedules', getAllSchedules);
+router.get('/schedules', scheduleController.getAllSchedules);
 
 // Route to get a schedule by scheduleId (GET)
-router.get('/schedules/:scheduleId', getScheduleByScheduleId);
+router.get('/schedules/:scheduleId', scheduleController.getScheduleByScheduleId);
 
 // Route to delete a schedule by scheduleId (DELETE)
-router.delete('/schedules/:scheduleId', deleteScheduleByScheduleId);
+router.delete('/schedules/:scheduleId', scheduleController.deleteScheduleByScheduleId);
 
-module.exports = router;
+module.exports = router;  // Export the router to be used in app.js
