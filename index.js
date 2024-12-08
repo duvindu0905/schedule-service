@@ -1,19 +1,15 @@
+// index.js
 const express = require('express');
 const cors = require('cors');
-const mongoose = require('mongoose');
-const dotenv = require('dotenv');
-
-// Load environment variables
-dotenv.config();
+const connectDB = require('./src/config/db');  // Import connectDB function from db.js
 
 const app = express();
+
 app.use(cors());
 app.use(express.json());
 
-// Connect to MongoDB
-mongoose.connect(process.env.DB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log('MongoDB connected'))
-  .catch(err => console.log(err));
+// Connect to MongoDB using connectDB from db.js
+connectDB();
 
 // Sample route
 app.get('/', (req, res) => {
