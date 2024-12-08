@@ -1,26 +1,13 @@
-const express = require('express');
-const cors = require('cors');
-const connectDB = require('./src/config/db');  // Import connectDB function from db.js
-const scheduleRoutes = require('./src/routes/scheduleRoute');  // Import schedule routes
+// Import the app from app.js
+const app = require('./src/app');  // Ensure to adjust path accordingly
 
-const app = express();
+const dotenv = require('dotenv');  // To load environment variables from .env file
+dotenv.config();  // Load environment variables
 
-app.use(cors());
-app.use(express.json());
-
-// Connect to MongoDB using connectDB from db.js
-connectDB();
-
-// Use schedule routes for API endpoints under /schedule-service
-app.use('/schedule-service', scheduleRoutes);  // This ensures that all schedule routes are prefixed with /schedule-service
-
-// Sample route
-app.get('/', (req, res) => {
-  res.send('Welcome to the Schedule Service API!');
-});
-
-// Define the port
+// Define the port from environment variables or default to 8082
 const PORT = process.env.PORT || 8082;
+
+// Start the Express server
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });

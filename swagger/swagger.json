@@ -1,0 +1,176 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "SCHEDULE-SERVICE [BUSSEWAYA.ONLINE]",
+      "description": "APIs for schedule service in the bussewaya system",
+      "version": "1.0"
+    },
+    "servers": [
+      {
+        "url": "http://localhost:8082",
+        "description": "Development Server"
+      },
+      {
+        "url": "https://api.scheduleservice.bussewaya.online",
+        "description": "Production Server"
+      }
+    ],
+    "paths": {
+      "/schedule-service/schedules": {
+        "get": {
+          "summary": "Get all schedules",
+          "tags": ["Schedule"],
+          "operationId": "getAllSchedules",
+          "responses": {
+            "200": {
+              "description": "List of schedules",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Schedule"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "post": {
+          "summary": "Create a new schedule",
+          "tags": ["Schedule"],
+          "operationId": "createSchedule",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Schedule"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Schedule created successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Schedule"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/schedule-service/schedules/{scheduleId}": {
+        "get": {
+          "summary": "Get a schedule by scheduleId",
+          "tags": ["Schedule"],
+          "operationId": "getScheduleByScheduleId",
+          "parameters": [
+            {
+              "name": "scheduleId",
+              "in": "path",
+              "required": true,
+              "description": "The schedule ID to retrieve",
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Schedule details",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Schedule"
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Schedule not found"
+            }
+          }
+        },
+        "delete": {
+          "summary": "Delete a schedule by scheduleId",
+          "tags": ["Schedule"],
+          "operationId": "deleteScheduleByScheduleId",
+          "parameters": [
+            {
+              "name": "scheduleId",
+              "in": "path",
+              "required": true,
+              "description": "The schedule ID to delete",
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Schedule deleted successfully"
+            },
+            "404": {
+              "description": "Schedule not found"
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "Schedule": {
+          "type": "object",
+          "properties": {
+            "scheduleId": {
+              "type": "number"
+            },
+            "departureTime": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "arrivalTime": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "startLocation": {
+              "type": "string"
+            },
+            "endLocation": {
+              "type": "string"
+            },
+            "routeName": {
+              "type": "string"
+            },
+            "routeNumber": {
+              "type": "string"
+            },
+            "permitNumber": {
+              "type": "string"
+            },
+            "vehicleNumber": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "scheduleId",
+            "departureTime",
+            "arrivalTime",
+            "startLocation",
+            "endLocation",
+            "routeName",
+            "routeNumber",
+            "permitNumber",
+            "vehicleNumber"
+          ]
+        }
+      }
+    }
+  }
+  
